@@ -199,4 +199,34 @@ popup-body .text{flex:1 1 52%;font-size:14px;color:#eaeaff}
 .logo-svg { width:450px; height:auto; display:block; }
 header { padding:20px; }
 .logo-wrap { display:flex; align-items:center; }
+/* responsive logo as <img> */
+.logo-wrap{display:flex;align-items:center;gap:18px}
+.logo-svg{
+  display:block;
+  width:100%;
+  max-width:450px;   /* desktop default */
+  height:auto;
+  image-rendering: -webkit-optimize-contrast; /* ostřejší vykreslení v některých prohlížečích */
+  image-rendering: crisp-edges;
+  -webkit-font-smoothing:antialiased;
+}
 
+/* tablet */
+@media (max-width:1024px){
+  .logo-svg{ max-width:380px; }
+}
+
+/* small tablet / large phone */
+@media (max-width:768px){
+  .logo-svg{ max-width:320px; }
+}
+
+/* mobile */
+@media (max-width:480px){
+  .logo-svg{ max-width:240px; }
+}
+
+/* pokud chceš ještě menší logiku pro velmi úzké mobily */
+@media (max-width:360px){
+  .logo-svg{ max-width:200px; }
+}
