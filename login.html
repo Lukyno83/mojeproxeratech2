@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+<h2>Login</h2>
+
+<input id="email" type="email" placeholder="Email"><br><br>
+<input id="password" type="password" placeholder="Password"><br><br>
+<button id="btnLogin">Login</button>
+
+<script>
+  const SUPABASE_URL = "https://nybedwlsvqcfgxruredz.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_4HV5ZXgQ-dC8fwD144shRQ_7wbIkKvx";
+
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  async function login() {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    if (!email || !password) {
+      alert("Zadej email a heslo.");
+      return;
+    }
+
+    try {
+      const { data, error } = await client.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        console.error("Login error:", error);
+        alert("Error: " + error.message);
+      } else {
+        console.log("Login OK:", data);
+        alert("Login successful!");
+        // window.location.href = "dashboard.html";
+      }
+
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      alert("Unexpected error: " + err.message);
+    }
+  }
+
+  document.getElementById("btnLogin").addEventListener("click", login);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register</title>
+
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+<h2>Register</h2>
+
+<input id="email" type="email" placeholder="Email"><br><br>
+<input id="password" type="password" placeholder="Password"><br><br>
+<button id="btnRegister">Register</button>
+
+<script>
+  const SUPABASE_URL = "https://nybedwlsvqcfgxruredz.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_4HV5ZXgQ-dC8fwD144shRQ_7wbIkKvx";
+
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  async function register() {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    if (!email || !password) {
+      alert("Zadej email a heslo.");
+      return;
+    }
+
+    try {
+      const { data, error } = await client.auth.signUp({
+        email,
+        password,
+      });
+
+      if (error) {
+        console.error("Register error:", error);
+        alert("Error: " + error.message);
+      } else {
+        console.log("Register OK:", data);
+        alert("Account created! Check email.");
+      }
+
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      alert("Unexpected error: " + err.message);
+    }
+  }
+
+  document.getElementById("btnRegister").addEventListener("click", register);
+</script>
+
+</body>
+</html>
