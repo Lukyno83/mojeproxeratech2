@@ -1,1 +1,33 @@
-<h1>Dashboard</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+</head>
+
+<body>
+  <h1>Dashboard</h1>
+  <p>Welcome! You are logged in.</p>
+
+  <button id="btnLogout">Logout</button>
+
+  <script src="assets/js/auth.js"></script>
+  <script>
+    // Ověření jestli je uživatel přihlášený
+    document.addEventListener("DOMContentLoaded", async () => {
+      const { data: { user } } = await client.auth.getUser();
+
+      if (!user) {
+        // Pokud není přihlášen → zpět na login
+        window.location.href = "login.html";
+      }
+    });
+
+    document.getElementById("btnLogout").addEventListener("click", async () => {
+      await client.auth.signOut();
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>
