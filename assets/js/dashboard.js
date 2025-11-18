@@ -1,1 +1,1 @@
-// dashboard
+window.location.href = "dashboard.html";
